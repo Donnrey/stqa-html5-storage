@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"l>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	Name:
+	<input type="text" id="txtName">
+	<button onclick="addName()">Add to local Storage</button>
+	<table border="="1">
+		<theaad>
+			<tr>
+				<th>Names</th>
+				<th>Gender</th>
+			</tr>
+		</theaad>
+		<tbody id="tbNames">
+			
+		</tbody>
+	</table>
+	
+
+	<script> 
+	function sample1(){
+		let msg = "Hellow World"
+		console.log(msg);
+		localStorage.setItem('msg','Hello');
+		sessionStorage.setItem('msg','World')
+
+		let str1 = localStorage.getItem('msg');
+		let str2 = sessionStorage.getItem('msg');
+		let str3 = str1 + str2;
+		console.log(str3);
+		
+		
+		localStorage.clear();
+		sessionStorage.clear();
+	}
+	
+	
+	function addName1(){
+		let name= document.querySelector('#txtName').value;
+		console.log(name);
+		localStorage.setItem('name',name);
+		sessionStorage.setItem('name',name);
+	}
+
+	let names = ['don','rey'];
+	function addName2(){
+		let name = document.querySelector('#txtName').value
+		names.push(name);
+		localStorage.setItem('names',names);
+		let lsNames = localStorage.getItem('names');
+		let listofNames = lsNames.split(',');
+		console.log(listofNames[0]);
+	}
+
+	let json_names = [{
+		name: "don",
+		gender: "M"
+	},{
+		name: "rey",
+		gender: "F"
+	},{
+		name: "john",
+		gender: "F"
+	}];
+	function addName(){
+		let name = document.querySelector('#txtName').value
+		let newName = {
+			name: name,
+			gender: "M"
+		};
+		json_names.push(newName);
+
+
+		console.log(json_names);
+		let jns = JSON.stringify(json_names);
+		localStorage.setItem('json_names',jns);
+		
+		let jns_retreive = JSON.parse (localStorage.getItem('json_names'));
+		console.log(jns_retreive);
+
+		console.log("Name is " + jns_retreive[0].name);
+		console.log("Gender is " + jns_retreive[0].gender);
+
+		// let html=`
+		//  <tr>
+		//  	<Td>${jns_retreive[0].name}</td>
+		//  	<Td>${jns_retreive[0].gender}</td>
+		//  </tr>
+		//  <tr>
+		// 	<Td>${jns_retreive[1].name}</td>
+		// 	<Td>${jns_retreive[1].gender}</td>
+
+		//  </tr>
+		//  `;
+		
+		let html = ``;
+		
+		jns_retreive.map((name)=>{
+			// console.log(name.name);
+			// console.log(name.gender);
+			// console.log("-------");
+			html += `
+		  	 <tr>
+				<td>${name.name}</td>
+				 <td>${name.gender}</td>
+		 	 </tr>
+			 `;
+		});
+
+
+		// for(let i=0;i<jns_retreive.length;i++){
+		// 	console.log(jns_retreive[i].name);
+		// 	console.log(jns_retreive[i].gender);
+		// 	console.log("********");
+
+		  document.querySelector('#tbNames').innerHTML = html;
+	
+	 }
+
+	
+
+	</script>
+	
+</body>
+</html>
